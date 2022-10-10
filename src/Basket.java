@@ -1,8 +1,6 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 
-public class Basket {
+public class Basket implements Serializable {
     private String[] products;
     private int[] prices;
     int[] counts;
@@ -53,6 +51,16 @@ public class Basket {
                 out.print(count + " ");
             }
         } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void saveBin(File file) {
+        try (
+                ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+        ) {
+            out.writeObject(new Basket(products, prices, counts));
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

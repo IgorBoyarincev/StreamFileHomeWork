@@ -1,12 +1,9 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        File textFile = new File("basket.txt");
+        File binFile = new File("basket.bin");
         Scanner scan = new Scanner(System.in);
         String[] products = {"молоко", "хлеб", "гречка"};
         int[] prices = {50, 14, 80};
@@ -29,13 +26,13 @@ public class Main {
             productCount = Integer.parseInt(parts[1]);
             basket.addToCart(indexProduct, productCount);
         }
-        if (!textFile.exists()) {
+        if (!binFile.exists()) {
             basket.printCart();
-            basket.saveText(textFile);
+            basket.saveText(binFile);
 
         } else {
-            basket.saveText(textFile);
-            loadFtomTxtFile(textFile);
+            basket.saveText(binFile);
+            loadFtomTxtFile(binFile);
         }
     }
 
@@ -62,5 +59,18 @@ public class Main {
             throw new RuntimeException(e);
         }
         return basket;
+    }
+
+    public static void loadFromBinFile(File file) {
+        try (
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+        ) {
+            Basket basket = (Basket) in.readObject();
+            basket.printCart();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
