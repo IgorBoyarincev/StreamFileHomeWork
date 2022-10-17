@@ -3,7 +3,7 @@ import java.io.*;
 public class Basket implements Serializable {
     private String[] products;
     private int[] prices;
-    int[] counts;
+    private int[] counts;
 
     public Basket(String[] products, int[] prices) {
         this.products = products;
