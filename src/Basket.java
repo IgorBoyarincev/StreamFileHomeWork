@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 public class Basket {
     private String[] products;
     private int[] prices;
-    int[] counts;
+    private int[] counts;
 
     public Basket(String[] products, int[] prices) {
         this.products = products;
