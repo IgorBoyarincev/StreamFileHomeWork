@@ -28,11 +28,11 @@ public class Main {
         }
         if (!binFile.exists()) {
             basket.printCart();
-            basket.saveText(binFile);
+            basket.saveBin(binFile);
 
         } else {
-            basket.saveText(binFile);
-            loadFtomTxtFile(binFile);
+            basket.saveBin(binFile);
+            loadFromBinFile(binFile);
         }
     }
 
