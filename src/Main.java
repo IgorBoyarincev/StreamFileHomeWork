@@ -1,4 +1,4 @@
-import java.io.*;
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -33,19 +33,6 @@ public class Main {
         } else {
             basket.saveText(textFile);
             Basket.loadFromTxtFile(textFile);
-        }
-    }
-
-    public static void loadFromBinFile(File file) {
-        try (
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-        ) {
-            Basket basket = (Basket) in.readObject();
-            basket.printCart();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
         }
     }
 }
