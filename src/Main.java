@@ -1,4 +1,4 @@
-import java.io.*;
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -32,45 +32,7 @@ public class Main {
 
         } else {
             basket.saveBin(binFile);
-            loadFromBinFile(binFile);
-        }
-    }
-
-    public static Basket loadFtomTxtFile(File textFile) {
-        String[] products;
-        int[] prices;
-        int[] counts;
-        Basket basket = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader(textFile));) {
-            products = reader.readLine().split(" ");
-            String[] pricesStr = reader.readLine().trim().split(" ");
-            prices = new int[pricesStr.length];
-            for (int i = 0; i < pricesStr.length; i++) {
-                prices[i] = Integer.parseInt(pricesStr[i]);
-            }
-            String[] countsStr = reader.readLine().trim().split(" ");
-            counts = new int[countsStr.length];
-            for (int i = 0; i < counts.length; i++) {
-                counts[i] = Integer.parseInt(countsStr[i]);
-            }
-            basket = new Basket(products, prices, counts);
-            basket.printCart();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return basket;
-    }
-
-    public static void loadFromBinFile(File file) {
-        try (
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-        ) {
-            Basket basket = (Basket) in.readObject();
-            basket.printCart();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            Basket.loadFromBinFile(binFile);
         }
     }
 }
